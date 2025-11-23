@@ -269,7 +269,7 @@
 
         #quantum .viz-content {
             position: absolute;
-            top: 320px;
+            top: 260px;
             left: 50%;
             transform: translateX(-50%);
             margin-top: 0;
@@ -1038,7 +1038,7 @@
                 quantumTime += 0.02;
 
                 const centerX = canvas.width / 2;
-                const centerY = canvas.height / 2 + 180; // MOVED DOWN 180px
+                const centerY = canvas.height / 2 + 120; // MOVED UP
                 const radius = Math.min(canvas.width, canvas.height) * 0.2;
 
                 const prob0 = quantumState.real0 ** 2 + quantumState.imag0 ** 2;
@@ -1139,9 +1139,10 @@
             updateQuantumInfo();
         }
 
-        // SCROLL TRANSITION EFFECT - SMOOTH AND FLUID
+        // SCROLL TRANSITION EFFECT - SMOOTH AND FLUID WITH FREEZE
         const header = document.querySelector('header');
         const aboutContent = document.getElementById('aboutContent');
+        let isLocked = false;
 
         window.addEventListener('scroll', () => {
             const scrollY = window.scrollY;
@@ -1149,16 +1150,14 @@
             const scrollPercentage = Math.min(scrollY / headerHeight, 1);
             const headerElement = document.querySelector('.header-content');
             
-            // Smooth continuous transition from 0 to 1
-            if (scrollPercentage < 0.35) {
-                // Initial fade out of name
-                const fadeOut = scrollPercentage / 0.35;
-                headerElement.style.opacity = 1 - fadeOut * 0.6;
-                headerElement.style.transform = `scale(${1 - fadeOut * 0.15})`;
-                aboutContent.style.opacity = 0;
-                aboutContent.classList.remove('active');
-                header.classList.remove('scrolled');
-            } else if (scrollPercentage < 0.65) {
+            // Lock scroll during transition
+            if (scrollPercentage >= 0.35 && scrollPercentage < 0.65) {
+                if (!isLocked) {
+                    isLocked = true;
+                    // Smooth lock - prevent further scrolling
+                    window.scrollTo(0, headerHeight * 0.5);
+                }
+                
                 // Cross-fade zone
                 const transitionProgress = (scrollPercentage - 0.35) / 0.3;
                 headerElement.style.opacity = Math.max(0, 0.4 - transitionProgress * 0.4);
@@ -1166,7 +1165,24 @@
                 aboutContent.style.opacity = transitionProgress;
                 aboutContent.classList.add('active');
                 header.classList.add('scrolled');
+                
+                // After transition completes, unlock
+                if (transitionProgress >= 0.99) {
+                    setTimeout(() => {
+                        isLocked = false;
+                    }, 300);
+                }
+            } else if (scrollPercentage < 0.35) {
+                isLocked = false;
+                // Initial fade out of name
+                const fadeOut = scrollPercentage / 0.35;
+                headerElement.style.opacity = 1 - fadeOut * 0.6;
+                headerElement.style.transform = `scale(${1 - fadeOut * 0.15})`;
+                aboutContent.style.opacity = 0;
+                aboutContent.classList.remove('active');
+                header.classList.remove('scrolled');
             } else {
+                isLocked = false;
                 // Fully show about
                 headerElement.style.opacity = 0;
                 headerElement.style.transform = `scale(0.7)`;
@@ -1175,6 +1191,19 @@
                 header.classList.add('scrolled');
             }
         });
+
+        // Prevent scroll during lock
+        window.addEventListener('wheel', (e) => {
+            if (isLocked) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        window.addEventListener('keydown', (e) => {
+            if (isLocked && ['ArrowDown', 'ArrowUp', ' ', 'PageDown', 'PageUp'].includes(e.key)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     </script>
 </body>
 </html>
