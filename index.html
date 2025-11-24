@@ -667,6 +667,189 @@
             font-weight: 300;
         }
 
+        /* PROJECT MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #3b4252, #434c5e);
+            border: 2px solid #88c0d0;
+            border-radius: 16px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 3rem;
+            position: relative;
+            animation: slideInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(180, 142, 173, 0.2);
+            border: 2px solid #b48ead;
+            color: #eceff4;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+        }
+        
+        .modal-close:hover {
+            background: #b48ead;
+            transform: rotate(90deg);
+        }
+        
+        .modal-header {
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(136, 192, 208, 0.3);
+            padding-bottom: 1.5rem;
+        }
+        
+        .modal-header h2 {
+            color: #88c0d0;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .modal-header .modal-subtitle {
+            color: #81a1c1;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+        }
+        
+        .modal-body h3 {
+            color: #b48ead;
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem 0;
+            font-weight: 600;
+        }
+        
+        .modal-body p {
+            color: #eceff4;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .modal-body ul {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .modal-body li {
+            color: #eceff4;
+            padding: 0.5rem 0;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+        
+        .modal-body li:before {
+            content: "▸ ";
+            color: #88c0d0;
+            font-weight: 600;
+            margin-right: 0.7rem;
+        }
+        
+        .modal-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .modal-btn {
+            background: linear-gradient(135deg, #88c0d0, #81a1c1);
+            color: #2e3440;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(136, 192, 208, 0.3);
+            font-size: 0.95rem;
+            display: inline-block;
+        }
+        
+        .modal-btn:hover {
+            background: linear-gradient(135deg, #b48ead, #88c0d0);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(180, 142, 173, 0.4);
+        }
+        
+        .modal-video {
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid rgba(136, 192, 208, 0.3);
+        }
+        
+        .modal-video iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 2rem 1.5rem;
+                width: 95%;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .modal-video iframe {
+                height: 250px;
+            }
+        }
+
         @media (max-width: 768px) {
             header h1 { font-size: 2rem; }
             header p { font-size: 1rem; }
@@ -790,13 +973,13 @@
     <section class="projects-section" id="projects">
         <h2>Featured Projects</h2>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card" onclick="openModal('frc')">
                     <div class="project-image">
                         <img src="https://via.placeholder.com/340x200/2e3440/88c0d0?text=FRC+Robotics" alt="FRC Robotics Suite">
                     </div>
                     <div class="project-content">
                         <h3>FRC Robotics Suite</h3>
-                        <p>Comprehensive robotics system including physics-based simulation for driver practice, real-time autonomous object avoidance with camera-based path planning, AI object detection integration, and robot state machine architecture. Competed at 2023 World Championship Galileo Division Finals.</p>
+                        <p>Comprehensive robotics system including physics-based simulation for driver practice, real-time autonomous object avoidance with camera-based path planning, AI object detection integration, and robot state machine architecture.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Java</span>
                             <span class="tech-tag">Python</span>
@@ -807,13 +990,13 @@
                     </div>
                 </div>
             
-                <div class="project-card">
+                <div class="project-card" onclick="openModal('novelgym')">
                     <div class="project-image">
                         <img src="https://via.placeholder.com/340x200/2e3440/b48ead?text=NovelGym" alt="NovelGym Extension">
                     </div>
                     <div class="project-content">
                         <h3>NovelGym HITL Extension</h3>
-                        <p>Extended NovelGym framework with Human-in-the-Loop feedback mechanisms for reinforcement learning agents. Enables real-time user feedback integration to improve agent adaptability in open-world scenarios. Research conducted at MuLIP Labs, Tufts University (RSI 2024).</p>
+                        <p>Extended NovelGym framework with Human-in-the-Loop feedback mechanisms for reinforcement learning agents. Research conducted at MuLIP Labs, Tufts University (RSI 2024).</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">RL</span>
@@ -823,13 +1006,13 @@
                     </div>
                 </div>
             
-                <div class="project-card">
+                <div class="project-card" onclick="openModal('rubiks')">
                     <div class="project-image">
                         <img src="https://via.placeholder.com/340x200/2e3440/81a1c1?text=Rubiks+Solver" alt="Rubik's Cube Solver">
                     </div>
                     <div class="project-content">
                         <h3>Rubik's Cube Solver</h3>
-                        <p>Custom implementation of Kociemba's algorithm with optimized phase-state decomposition and pruning tables. Features 3D-printed hardware on P1S with servo-controlled arms achieving 21-41 second solve times. Deep dive into heuristic methodologies and constraint satisfaction.</p>
+                        <p>Custom implementation of Kociemba's algorithm with optimized phase-state decomposition and pruning tables. Features 3D-printed hardware achieving 21-41 second solve times.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Python</span>
                             <span class="tech-tag">Arduino</span>
@@ -839,13 +1022,13 @@
                     </div>
                 </div>
             
-                <div class="project-card">
+                <div class="project-card" onclick="openModal('mvs')">
                     <div class="project-image">
                         <img src="https://via.placeholder.com/340x200/2e3440/a3be8c?text=Miami+Vex" alt="Miami Vex Support">
                     </div>
                     <div class="project-content">
                         <h3>Miami Vex Support</h3>
-                        <p>Founded nonprofit teaching engineering fundamentals to underrepresented Miami communities across 5+ schools. Built full-stack website for visibility, organized volunteer community, and managed 2+ summer robotics programs annually. Empowering the next generation of STEM leaders.</p>
+                        <p>Founded nonprofit teaching engineering fundamentals to underrepresented Miami communities across 5+ schools. Built full-stack website and managed 2+ summer robotics programs annually.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Web Dev</span>
                             <span class="tech-tag">Education</span>
@@ -855,13 +1038,13 @@
                     </div>
                 </div>
             
-                <div class="project-card">
+                <div class="project-card" onclick="openModal('sketch')">
                     <div class="project-image">
                         <img src="https://via.placeholder.com/340x200/2e3440/ebcb8b?text=Active+Dev" alt="Sketch Visualizer">
                     </div>
                     <div class="project-content">
                         <h3>AI Sketch Visualizer <span style="color: #ebcb8b; font-size: 0.75em;">[Active Development]</span></h3>
-                        <p>AI-driven engineering tool converting sketches to 3D models with manufacturability analysis. Uses CV for geometry extraction and AI for feasibility assessment. Aims to democratize design validation for students without premium CAD software access.</p>
+                        <p>AI-driven engineering tool converting sketches to 3D models with manufacturability analysis. Uses CV for geometry extraction and AI for feasibility assessment.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Computer Vision</span>
                             <span class="tech-tag">LLMs</span>
@@ -872,6 +1055,188 @@
                 </div>
             </div>
     </section>
+
+
+    <!-- PROJECT MODALS -->
+    <div id="modal-frc" class="modal" onclick="closeModal(event, 'frc')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal(event, 'frc')">&times;</span>
+            <div class="modal-header">
+                <h2>FRC Robotics Suite</h2>
+                <p class="modal-subtitle">World Championship Competition System</p>
+            </div>
+            <div class="modal-body">
+                <h3>Overview</h3>
+                <p>Comprehensive robotics system developed for FIRST Robotics Competition, culminating in a semifinal appearance at the 2023 World Championship Galileo Division Finals. This suite represents a year of intensive development combining simulation, computer vision, and autonomous systems.</p>
+                
+                <h3>Key Components</h3>
+                <ul>
+                    <li><strong>Physics-Based Simulation:</strong> Custom simulator for driver practice and software testing without physical robot access, reducing development time and hardware wear</li>
+                    <li><strong>Autonomous Object Avoidance:</strong> Real-time path planning system using OAK-D Pro camera with dynamic obstacle detection and path stitching</li>
+                    <li><strong>AI Object Detection:</strong> Integrated computer vision pipeline for game piece recognition and field element tracking</li>
+                    <li><strong>Robot State Machine:</strong> Robust state management architecture ensuring reliable autonomous and teleoperated modes</li>
+                </ul>
+                
+                <h3>Technical Implementation</h3>
+                <p>Built primarily in Java with Python integration for computer vision tasks. The object avoidance system uses PathPlanner paths with real-time nulled zones based on OAK-D Pro camera data, enabling dynamic replanning during autonomous periods.</p>
+                
+                <div class="modal-video">
+                    <p style="text-align: center; padding: 2rem; color: #81a1c1;">Video demonstration coming soon - upload your FRC video to YouTube and add link here</p>
+                </div>
+                
+                <h3>Impact</h3>
+                <p>The autonomous system performed flawlessly during competition, allowing our robot to navigate complex field dynamics with unprecedented precision. This project taught me the importance of robust testing, modular architecture, and the practical challenges of deploying AI systems in high-stakes environments.</p>
+                
+                <div class="modal-links">
+                    <a href="#contact" class="modal-btn">Request Demo Video</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-novelgym" class="modal" onclick="closeModal(event, 'novelgym')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal(event, 'novelgym')">&times;</span>
+            <div class="modal-header">
+                <h2>NovelGym HITL Extension</h2>
+                <p class="modal-subtitle">RSI 2024 Research Project | MuLIP Labs, Tufts University</p>
+            </div>
+            <div class="modal-body">
+                <h3>Research Overview</h3>
+                <p>Extended the NovelGym framework to incorporate Human-in-the-Loop (HITL) feedback mechanisms for reinforcement learning agents operating in open-world scenarios with novelty. This research addresses a critical challenge in AI: how can agents adapt to unexpected situations by leveraging human expertise?</p>
+                
+                <h3>Key Contributions</h3>
+                <ul>
+                    <li><strong>HITL Framework:</strong> Developed interface for real-time human feedback integration during agent training and deployment</li>
+                    <li><strong>Feedback Processing:</strong> Created mechanisms to translate natural language human guidance into actionable agent updates</li>
+                    <li><strong>Adaptability Metrics:</strong> Established quantitative measures for agent improvement with human assistance</li>
+                    <li><strong>GridWorld Implementation:</strong> Demonstrated system in controllable environment with diverse novelty types</li>
+                </ul>
+                
+                <h3>Technical Approach</h3>
+                <p>Built on Python-based NovelGym infrastructure using PDDL for domain specification and reinforcement learning algorithms for agent training. The HITL system accepts human feedback through multiple modalities and updates agent policies without full retraining.</p>
+                
+                <h3>Results & Impact</h3>
+                <p>Demonstrated significant improvement in agent adaptability when human feedback was incorporated, particularly in scenarios with unexpected environmental changes. This work contributes to the broader goal of creating AI systems that can collaborate effectively with humans in uncertain environments.</p>
+                
+                <div class="modal-links">
+                    <a href="https://github.com/tufts-ai-robotics-group/NovelGym" target="_blank" class="modal-btn">View on GitHub</a>
+                    <a href="#contact" class="modal-btn">Request Research Paper</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-rubiks" class="modal" onclick="closeModal(event, 'rubiks')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal(event, 'rubiks')">&times;</span>
+            <div class="modal-header">
+                <h2>Rubik's Cube Solver</h2>
+                <p class="modal-subtitle">Custom Kociemba Algorithm Implementation</p>
+            </div>
+            <div class="modal-body">
+                <h3>Project Motivation</h3>
+                <p>After years of speedcubing (averaging ~10 second solves), I wanted to understand the mathematics behind optimal solving algorithms rather than just memorizing patterns. This project became a deep dive into heuristic search, constraint satisfaction, and mechanical engineering.</p>
+                
+                <h3>Algorithm Development</h3>
+                <ul>
+                    <li><strong>Phase-State Decomposition:</strong> Implemented two-phase approach separating cube into subsets for efficient solving</li>
+                    <li><strong>Pruning Tables:</strong> Generated comprehensive lookup tables to eliminate impossible move sequences</li>
+                    <li><strong>Optimization:</strong> Custom heuristics reducing average move count and computation time</li>
+                    <li><strong>Search Strategy:</strong> Iterative deepening A* with domain-specific pruning</li>
+                </ul>
+                
+                <h3>Hardware Implementation</h3>
+                <p>Designed and 3D-printed mechanical solver on Bambu Lab P1S. Six servo-controlled arms manipulate the cube with coordinated timing. Integration between software solver and hardware controller required careful calibration and error handling.</p>
+                
+                <h3>Performance</h3>
+                <p>Achieves solve times of 21-41 seconds with move counts of 19-31, balancing optimality with computational efficiency. The project taught me invaluable lessons about the gap between theoretical algorithms and practical implementation.</p>
+                
+                <h3>Key Learnings</h3>
+                <p>This project embodied patience and iteration—debugging mechanical timing issues, optimizing search algorithms, and calibrating servo movements required persistence. It reinforced my belief that the best learning comes from tackling problems just beyond your current skill set.</p>
+                
+                <div class="modal-links">
+                    <a href="#contact" class="modal-btn">Request Technical Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-mvs" class="modal" onclick="closeModal(event, 'mvs')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal(event, 'mvs')">&times;</span>
+            <div class="modal-header">
+                <h2>Miami Vex Support</h2>
+                <p class="modal-subtitle">Nonprofit STEM Education Initiative</p>
+            </div>
+            <div class="modal-body">
+                <h3>Mission</h3>
+                <p>Founded Miami Vex Support to provide engineering education and robotics opportunities to underrepresented communities in Miami. The organization bridges the resource gap that prevents talented students from accessing STEM education and competition opportunities.</p>
+                
+                <h3>Programs & Impact</h3>
+                <ul>
+                    <li><strong>School Partnerships:</strong> Established robotics programs at 5+ Miami schools, providing equipment, curriculum, and mentorship</li>
+                    <li><strong>Summer Programs:</strong> Organized and managed 2+ annual summer robotics camps introducing students to engineering fundamentals</li>
+                    <li><strong>Volunteer Network:</strong> Built community of volunteer mentors including college students and industry professionals</li>
+                    <li><strong>Competition Support:</strong> Helped teams prepare for and attend VEX Robotics competitions, often their first competitive experience</li>
+                </ul>
+                
+                <h3>Technical Infrastructure</h3>
+                <p>Developed full-stack website for program visibility, volunteer coordination, and resource distribution. The platform includes curriculum materials, project documentation, and competition schedules accessible to students and mentors.</p>
+                
+                <h3>Personal Growth</h3>
+                <p>This project taught me that technical skills are most valuable when applied to meaningful problems. Managing a nonprofit requires leadership, communication, and persistence—skills that complement my technical education and inform how I approach all my work.</p>
+                
+                <h3>Future Vision</h3>
+                <p>Expanding to more schools, increasing summer program capacity, and creating pathways for students to continue STEM education through college. The goal is sustainable impact that changes trajectories, not just provides experiences.</p>
+                
+                <div class="modal-links">
+                    <a href="#contact" class="modal-btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="modal-sketch" class="modal" onclick="closeModal(event, 'sketch')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal(event, 'sketch')">&times;</span>
+            <div class="modal-header">
+                <h2>AI Sketch Visualizer</h2>
+                <p class="modal-subtitle">Active Development | AI@MIT</p>
+            </div>
+            <div class="modal-body">
+                <h3>Project Vision</h3>
+                <p>Creating an AI-powered engineering tool that democratizes design validation by converting hand-drawn sketches into 3D models with integrated manufacturability analysis. This addresses a critical barrier: students designing components for projects often lack the machining background to assess feasibility before investing in expensive CAD work.</p>
+                
+                <h3>Technical Approach</h3>
+                <ul>
+                    <li><strong>Computer Vision Pipeline:</strong> Processes isometric or multi-view orthographic sketches, cleaning and extracting geometric features</li>
+                    <li><strong>3D Model Generation:</strong> Converts 2D sketches into 3D meshes using CV model trained on engineering drawings</li>
+                    <li><strong>Manufacturability Analysis:</strong> Evaluates generated models for undercuts, overhangs, minimum feature sizes, and other machining constraints</li>
+                    <li><strong>LLM Integration:</strong> Provides natural language feedback on design feasibility and suggested modifications</li>
+                </ul>
+                
+                <h3>Current Status</h3>
+                <p>In active development phase—prototyping CV model for sketch interpretation and establishing analysis framework. Key challenges include handling varied sketch quality, ambiguous geometric specifications, and balancing analysis depth with user accessibility.</p>
+                
+                <h3>Planned Features</h3>
+                <ul>
+                    <li>Interactive UI for sketch input and model visualization</li>
+                    <li>Color-coded feasibility mapping (green/yellow/red highlighting)</li>
+                    <li>Complexity scoring indicating required machining capabilities</li>
+                    <li>Alternative design suggestions for problematic features</li>
+                </ul>
+                
+                <h3>Future Impact</h3>
+                <p>This tool aims to lower barriers to hardware prototyping, especially for students without access to premium CAD software or machining expertise. By providing rapid feedback on design feasibility, it enables faster iteration and more ambitious projects.</p>
+                
+                <div class="modal-links">
+                    <a href="#contact" class="modal-btn">Follow Development</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="section-divider">
         <div class="divider-line"></div>
@@ -1244,6 +1609,34 @@
                 header.classList.add('scrolled');
             }
         });
+
+        // PROJECT MODAL FUNCTIONS
+        function openModal(projectId) {
+            const modal = document.getElementById(`modal-${projectId}`);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+        
+        function closeModal(event, projectId) {
+            const modal = document.getElementById(`modal-${projectId}`);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+        }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+        
     </script>
 </body>
 </html>
