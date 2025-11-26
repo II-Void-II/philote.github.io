@@ -940,7 +940,7 @@
         <div class="viz-content">
             <div class="viz-subtitle">Interactive Visualization</div>
             <h2 class="viz-title">Neural Network Dynamics</h2>
-            <p class="viz-description">Vizualize how data flows through the connected layers by hovering over the nodes to activate neurons.</p>
+            <p class="viz-description">Vizualize how data flows through the connected layers by hovering over nodes to activate neurons.</p>
         </div>
     </div>
 
@@ -980,7 +980,6 @@
                     <div class="project-content">
                         <h3>FRC Simulations</h3>
                         <p>Comprehensive robotics system including physics-based simulation for driver practice, 
-                            real-time autonomous object avoidance with camera-based path planning, AI object detection integration, 
                             and robot state machine architecture.</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Java</span>
@@ -995,8 +994,9 @@
                         <img src="https://via.placeholder.com/340x200/2e3440/88c0d0?text=FRC+Robotics" alt="FRC Vision AI">
                     </div>
                     <div class="project-content">
-                        <h3>Your Project Name</h3>
-                        <p>Boom Boom use vision to detect things ,boom boom</p>
+                        <h3>FRC Vision Recognition</h3>
+                        <p>Boom Boom use vision to detect things , real-time autonomous object avoidance with camera-based 
+                            path planning, AI object detection integration</p>
                         <div class="tech-stack">
                             <span class="tech-tag">Java</span>
                             <span class="tech-tag">Python</span>
@@ -1079,11 +1079,47 @@
 
 
     <!-- PROJECT MODALS -->
-    <div id="modal-frc" class="modal" onclick="closeModal(event, 'frc')">
+    <div id="modal-frc" class="modal" onclick="closeModal(event, 'frcsim')">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="modal-close" onclick="closeModal(event, 'frc')">&times;</span>
+            <span class="modal-close" onclick="closeModal(event, 'frcsim')">&times;</span>
             <div class="modal-header">
-                <h2>FRC Robotics Suite</h2>
+                <h2>FRC Simulations</h2>
+                <p class="modal-subtitle">World Championship Competition System</p>
+            </div>
+            <div class="modal-body">
+                <h3>Overview</h3>
+                <p>Comprehensive robotics system developed for FIRST Robotics Competition, culminating in a semifinal appearance at the 2023 World Championship Galileo Division Finals. This suite represents a year of intensive development combining simulation, computer vision, and autonomous systems.</p>
+                
+                <h3>Key Components</h3>
+                <ul>
+                    <li><strong>Physics-Based Simulation:</strong> Custom simulator for driver practice and software testing without physical robot access, reducing development time and hardware wear</li>
+                    <li><strong>Autonomous Object Avoidance:</strong> Real-time path planning system using OAK-D Pro camera with dynamic obstacle detection and path stitching</li>
+                    <li><strong>AI Object Detection:</strong> Integrated computer vision pipeline for game piece recognition and field element tracking</li>
+                    <li><strong>Robot State Machine:</strong> Robust state management architecture ensuring reliable autonomous and teleoperated modes</li>
+                </ul>
+                
+                <h3>Technical Implementation</h3>
+                <p>Built primarily in Java with Python integration for computer vision tasks. The object avoidance system uses PathPlanner paths with real-time nulled zones based on OAK-D Pro camera data, enabling dynamic replanning during autonomous periods.</p>
+                
+                <div class="modal-video">
+                    <p style="text-align: center; padding: 2rem; color: #81a1c1;">Video demonstration coming soon - upload your FRC video to YouTube and add link here</p>
+                </div>
+                
+                <h3>Impact</h3>
+                <p>The autonomous system performed flawlessly during competition, allowing our robot to navigate complex field dynamics with unprecedented precision. This project taught me the importance of robust testing, modular architecture, and the practical challenges of deploying AI systems in high-stakes environments.</p>
+                
+                <div class="modal-links">
+                    <a href="#contact" class="modal-btn">Request Demo Video</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-frc" class="modal" onclick="closeModal(event, 'frcai')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal(event, 'frcai')">&times;</span>
+            <div class="modal-header">
+                <h2>FRC Vision Recognition</h2>
                 <p class="modal-subtitle">World Championship Competition System</p>
             </div>
             <div class="modal-body">
